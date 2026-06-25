@@ -206,12 +206,13 @@ Los problemas se concentran en un grupo de archivos marcados como **Problematic*
 **Evidencias:**
 
 ![Mapa Code Health con los archivos Problematic resaltados](fig-3a-code-health-problematic.png)
-*Mapa de Code Health. Los círculos amarillos son los archivos Problematic, concentrados en `web`.*
+*Figura M1a. Mapa de Code Health. Los círculos amarillos son los archivos Problematic, concentrados en `web`.*
 
 ![Detalle de common.py, 7.71](fig-3a-common.png) · ![feed.py, 8.79](fig-3a-feed.png) · ![forms.py, 8.78](fig-3a-forms.png) · ![commands.py, 8.95](fig-3a-commands.png)
+*Figura M1b. Detalle de Code Health de los cuatro archivos Problematic: `common.py` (7.71), `feed.py` (8.79), `forms.py` (8.78) y `commands.py` (8.95).*
 
 ![Hotspots bookmark.py](fig-3a-hotspots-bookmark.png) · ![Hotspots default_crawler.py](fig-3a-hotspots-crawler.png)
-*Hotspots: `bookmark.py` (9.68) y `default_crawler.py` (9.16) son muy activos pero sanos.*
+*Figura M1c. Hotspots: `bookmark.py` (9.68) y `default_crawler.py` (9.16) son muy activos pero sanos.*
 
 ### M2. Componente con más problemas y componente que se degrada
 
@@ -224,7 +225,7 @@ Los problemas se concentran en un grupo de archivos marcados como **Problematic*
 | **Datos (Persistencia)** | `newspipe/newspipe/models/**` | Entidades SQLAlchemy |
 
 ![Definición de componentes en el Architectural Component Editor](fig-4-componentes-definicion.png)
-*Definición de los componentes Web, Backend y Datos por patrones de ruta.*
+*Figura M2a. Definición de los componentes Web, Backend y Datos por patrones de ruta en el Architectural Component Editor de CodeScene.*
 
 | Componente | Commits | Code Health (prom. pond.) | Worst | Hotspots Health | Tendencia |
 |---|---|---|---|---|---|
@@ -238,7 +239,7 @@ Los problemas se concentran en un grupo de archivos marcados como **Problematic*
 **Matiz Web vs. Backend:** `Web` es el más activo (18 commits) y aloja el **peor archivo individual** (worst 7.72 = `common.py`/`feed.py`), pero su salud global se mantiene estable. En Web el riesgo está **localizado en archivos puntuales**; en Backend el problema es del **componente como conjunto**, y además **empeora con el tiempo**. `Datos` es ejemplar (9.96, tendencia plana).
 
 ![System Health por componente](fig-4-system-health-componentes.png)
-*Backend (8.96) es el único con tendencia descendente; Web y Datos se mantienen estables.*
+*Figura M2b. System Health por componente: Backend (8.96) es el único con tendencia descendente; Web y Datos se mantienen estables.*
 
 ### M3. Riesgos de fuga y pérdida de conocimiento
 
@@ -257,7 +258,7 @@ Los problemas se concentran en un grupo de archivos marcados como **Problematic*
 **2. Conocimiento huérfano ya materializado (François Schmidts).** Posee **14 archivos** pero su **última contribución fue en febrero de 2016**. El punto crítico es la **convergencia con M1**: el archivo de **peor Code Health, `common.py` (7.71)**, es propiedad de François (60 %). El código más difícil de mantener es además el que tiene a su dueño fuera del proyecto → **máximo riesgo de fuga de conocimiento**, justo en la **API v2**.
 
 ![Author Statistics](fig-3b-author-statistics.png)
-*Cédric posee 72/88 archivos (bus factor); François posee 14 archivos pero inactivo desde 2016 (conocimiento huérfano, incluido `common.py`).*
+*Figura M3. Author Statistics: Cédric posee 72/88 archivos (bus factor); François posee 14 archivos pero inactivo desde 2016 (conocimiento huérfano, incluido `common.py`).*
 
 ### M4. Acoplamiento, código duplicado o muerto
 
@@ -267,9 +268,9 @@ CodeScene representa el **change coupling** (archivos que tienden a cambiar junt
 
 **Sí. El atributo de calidad degradado es la MANTENIBILIDAD.** Lo sustentamos con las siguientes métricas concretas de CodeScene:
 
-1. **Degradación temporal medible del componente Backend:** su Code Health cae de **8.56 a 8.48** y es el **único componente con tendencia descendente** del sistema (Figura `fig-4-system-health-componentes.png`). Es una degradación *en curso*, no estática.
-2. **Concentración de deuda en archivos clave:** `common.py` baja a **7.71** (el peor del sistema) y `feed.py` (8.79) es un hotspot problemático de alta frecuencia de cambio (Figuras `fig-3a-*`).
-3. **Degradación de la mantenibilidad por factor social:** el bus factor (Cédric, 72/88 archivos) y el conocimiento huérfano (François, dueño de `common.py`, inactivo desde 2016) degradan la capacidad real del equipo para evolucionar el sistema con seguridad (Figura `fig-3b-author-statistics.png`).
+1. **Degradación temporal medible del componente Backend:** su Code Health cae de **8.56 a 8.48** y es el **único componente con tendencia descendente** del sistema (Figura M2b). Es una degradación *en curso*, no estática.
+2. **Concentración de deuda en archivos clave:** `common.py` baja a **7.71** (el peor del sistema) y `feed.py` (8.79) es un hotspot problemático de alta frecuencia de cambio (Figuras M1a y M1b).
+3. **Degradación de la mantenibilidad por factor social:** el bus factor (Cédric, 72/88 archivos) y el conocimiento huérfano (François, dueño de `common.py`, inactivo desde 2016) degradan la capacidad real del equipo para evolucionar el sistema con seguridad (Figura M3).
 
 Afirmamos degradación **solo de mantenibilidad**, porque es el único atributo del que tenemos **evidencia objetiva** (CodeScene). **No** afirmamos degradación de desempeño ni de usabilidad: no se realizaron pruebas de carga ni encuestas de usuario sobre Newspipe, por lo que sostener esas degradaciones no tendría respaldo.
 
