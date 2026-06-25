@@ -21,9 +21,9 @@ Se eligió **CodeScene Community Edition** como herramienta de cartografía. La 
 
 - **Cubre los dos ejes exigidos en una sola herramienta.** CodeScene responde tanto preguntas de **mantenibilidad** (Code Health, Hotspots, change coupling, complejidad) como de **arquitectura** (definición de componentes por patrones de ruta y métricas agregadas por componente con su tendencia temporal).
 - **Análisis "behavioral", no solo estático.** A diferencia de un linter o de SonarQube clásico, CodeScene combina el análisis del código con el **historial de commits** (Git). Esto permite responder preguntas que un análisis puramente estático no puede: qué archivos cambian con más frecuencia (Hotspots), qué archivos cambian juntos (change coupling) y, sobre todo, **dónde está el conocimiento y el riesgo de fuga** (Author Statistics, bus factor). Para una aplicación legada mantenida durante más de 12 años por pocas personas, esta dimensión social del código es decisiva.
-- **Mide degradación en el tiempo.** La vista *System Health* muestra la **tendencia** del Code Health por componente, lo que permite distinguir un componente que está mal pero estable de uno que se está **deteriorando** — justo lo que se necesita para responder la pregunta de atributos de calidad degradados.
+- **Mide degradación en el tiempo.** La vista *System Health* muestra la **tendencia** del Code Health por componente, lo que permite distinguir un componente que está mal pero estable de uno que se está **deteriorando**.
 - **Restricciones satisfechas.** Newspipe es un repositorio open source, público y con historial de commits completo, condiciones que exige la edición Community. Python está entre los lenguajes soportados.
-- **Continuidad con el trabajo del curso.** Es la herramienta trabajada en el tutorial (OpenCMS) y en el reto individual, por lo que el equipo ya domina sus visualizaciones, reduciendo el riesgo de mala interpretación de las métricas.
+- **Continuidad con el trabajo del curso.** Es la herramienta trabajada en el tutorial (OpenCMS) y en el reto individual, por lo que el equipo domina las visualizaciones y configuraciones, reduciendo el riesgo de mala interpretación de las métricas.
 
 Para el **eje de arquitectura** (componentes funcionales, despliegue, fuentes de datos y patrones) se complementó CodeScene con **inspección directa del código fuente** y la documentación del repositorio, de donde se derivaron los diagramas de arquitectura concreta presentados en la sección 1.3.
 
@@ -265,13 +265,13 @@ CodeScene representa el **change coupling** (archivos que tienden a cambiar junt
 
 ## 1.5 ¿Existen atributos de calidad degradados?
 
-**Sí. El atributo de calidad degradado es la MANTENIBILIDAD.** Lo sustentamos con métricas concretas de CodeScene (no con suposiciones):
+**Sí. El atributo de calidad degradado es la MANTENIBILIDAD.** Lo sustentamos con las siguientes métricas concretas de CodeScene:
 
 1. **Degradación temporal medible del componente Backend:** su Code Health cae de **8.56 a 8.48** y es el **único componente con tendencia descendente** del sistema (Figura `fig-4-system-health-componentes.png`). Es una degradación *en curso*, no estática.
 2. **Concentración de deuda en archivos clave:** `common.py` baja a **7.71** (el peor del sistema) y `feed.py` (8.79) es un hotspot problemático de alta frecuencia de cambio (Figuras `fig-3a-*`).
 3. **Degradación de la mantenibilidad por factor social:** el bus factor (Cédric, 72/88 archivos) y el conocimiento huérfano (François, dueño de `common.py`, inactivo desde 2016) degradan la capacidad real del equipo para evolucionar el sistema con seguridad (Figura `fig-3b-author-statistics.png`).
 
-**Alcance de la afirmación (honestidad metodológica):** afirmamos degradación **solo de mantenibilidad**, porque es el único atributo del que tenemos **evidencia objetiva** (CodeScene). **No** afirmamos degradación de desempeño ni de usabilidad: no se realizaron pruebas de carga ni encuestas de usuario sobre Newspipe, por lo que sostener esas degradaciones no tendría respaldo.
+Afirmamos degradación **solo de mantenibilidad**, porque es el único atributo del que tenemos **evidencia objetiva** (CodeScene). **No** afirmamos degradación de desempeño ni de usabilidad: no se realizaron pruebas de carga ni encuestas de usuario sobre Newspipe, por lo que sostener esas degradaciones no tendría respaldo.
 
 ---
 
